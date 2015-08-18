@@ -4,6 +4,8 @@ import codecs
 import math
 import sys
 
+from pysmt.shortcuts import Symbol, And, Not, is_sat
+
 from decimal import Decimal
 
 def read_utf8_file_as_unicode(file):
@@ -150,15 +152,24 @@ class SuperScholar:
                     self.handleRule(rule)
 
 def getCandidates():
+    varA = Symbol("A")
+    varB = Symbol("B")
+    f = And([varA, Not(varB)])
     scholar = SuperScholar()
     scholar.trainModel('./trainingset/book.txt')
     scholar.writeModel('./model.txt')
+
+    scholar.gao(u'南山南')
+    scholar.gao(u'冰比冰水冰')
+    scholar.gao(u'明天去操场操到天明')
+    scholar.gao(u'大波美人鱼人美波大')
 
     scholar.gao(u'人')
     scholar.gao(u'人间')
     scholar.gao(u'人间美')
     scholar.gao(u'人间佳草')
     scholar.gao(u'人间一杯酒')
+    scholar.gao(u'我爸是李刚')
 
 if __name__ == '__main__':
     getCandidates()
